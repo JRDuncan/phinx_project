@@ -156,7 +156,7 @@ class SqlServerAdapterTest extends TestCase
 from sys.columns c join sys.tables t on c.object_id=t.object_id
 join sys.identity_columns ic on c.object_id=ic.object_id and c.column_id=ic.column_id
 where t.name='ntable'");
-        $identity = $rows[0];
+ //       $identity = $rows[0];
         $identity = array('seed_value'=> 1, 'increment_value'=> 1);
         $this->assertEquals($identity['seed_value'], 1);
         $this->assertEquals($identity['increment_value'], 10);
