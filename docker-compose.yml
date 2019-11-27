@@ -1,0 +1,33 @@
+version: "2"
+services:
+    phinx:
+        build: .
+        volumes:
+            - .:/src
+        links:
+            - mysql
+            - postgres
+            - sqlsrv
+        command: bash
+        environment:
+            - TESTS_PHINX_DB_ADAPTER_MYSQL_HOST=mysql
+            - TESTS_PHINX_DB_ADAPTER_POSTGRES_HOST=postgres
+            - TESTS_PHINX_DB_ADAPTER_SQLSRV_HOST=sqlsrv
+    mysql:
+        image: mysql:5.6
+        environment:
+            - MYSQL_DATABASE=phinx_testing
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    sqlsrv:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        environment:
+            - MSSQL_DATABASE=phinx_testing
+            - ACCEPT_EULA=Y             
+            - SA_PASSWORD=P@ssw0rd 
+        ports:
+            - 1433:1433              
+    postgres:
+        image: postgres:12
+        environment:
+            - POSTGRES_DB=phinx_testing
+
